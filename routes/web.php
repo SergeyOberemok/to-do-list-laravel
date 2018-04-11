@@ -12,5 +12,18 @@
 */
 
 Route::get('/', function () {
-    return view('index');
+    return view('angular');
+});
+
+Route::get('/angular', function () {
+    return view('angular');
+});
+
+Route::group(['prefix' => 'api', 'as' => 'api.'], function () {
+    Route::group(['prefix' => 'tasks', 'as' => 'tasks.'], function () {
+        Route::get('/', 'TaskController@index')->name('index');
+        Route::post('/', 'TaskController@create')->name('create');
+        Route::put('/{id}', 'TaskController@update')->name('update');
+        Route::delete('/{id}', 'TaskController@destroy')->name('delete');
+    });
 });
